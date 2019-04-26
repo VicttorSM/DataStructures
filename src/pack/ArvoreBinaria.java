@@ -19,7 +19,7 @@ public class ArvoreBinaria<T extends Comparable<T>> {
         return n == 0;
     }
     
-    public void insere(T valor) {
+    public boolean insere(T valor) {
         NoArv<T> novo = new NoArv<>(valor);
         NoArv<T> anterior = null;
         NoArv<T> atual = raiz;
@@ -48,6 +48,7 @@ public class ArvoreBinaria<T extends Comparable<T>> {
         }
         novo.setPai(anterior);
         n++;
+        return true;
     }
     
     public boolean remove(T valor) {
@@ -146,6 +147,11 @@ public class ArvoreBinaria<T extends Comparable<T>> {
     
     public NoArv<T> getRaiz() {
         return raiz;
+    }
+    
+    public void limpa() {
+        raiz = null; // deixa o GC do java limpar os nodos
+        n = 0;
     }
     
     private int numDeFilhos(NoArv<T> no) {
