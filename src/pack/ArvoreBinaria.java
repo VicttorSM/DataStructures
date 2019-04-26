@@ -59,45 +59,59 @@ public class ArvoreBinaria<T extends Comparable<T>> {
             return false;
         }
         NoArv<T> pai = no.getPai();
-        NoArv<T> filho;
-        // no a ser removido possui um filho a esquerda
-        if (no.getEsq() != null) {
-            no.getEsq().setPai(pai);
-            filho = no.getEsq();
-        }
-        // no a ser removido possui um filho a direita
-        else if (no.getDir() != null) {
-            no.getDir().setPai(pai);
-            filho = no.getDir();
-        }
-        // no a ser removido nao possui nenhum filho
-        else {
-            filho = null;
+        
+        /* encontra o sucessor e o troca de lugar com o no */
+        NoArv<T> sucessor;
+        switch (numDeFilhos(no)) {
+            case 1:
+                if (no.getEsq() != null) {
+                    sucessor = no.getEsq();
+                }
+                else {
+                    sucessor = no.getDir();
+                }   
+                sucessor.setPai(pai);
+                break;
+            case 2:
+                sucessor = no.getDir();
+                while (sucessor.getEsq() != null) {
+                    sucessor = sucessor.getEsq();
+                }
+                if (sucessor.getPai().getEsq() == sucessor) {
+                    sucessor.getPai().setEsq(sucessor.getDir());
+                    if (sucessor.getDir() != null) {
+                        sucessor.getDir().setPai(sucessor.getPai());
+                    }
+                    sucessor.setDir(no.getDir());
+                }
+                sucessor.setEsq(no.getEsq());
+                sucessor.setPai(pai);
+                break;
+            default:
+                sucessor = null;
+                break;
         }
         
-        // no a ser removido possui pai
-        if (pai != null) {
-            if (no.getValor().compareTo(pai.getValor()) < 0) {
-                pai.setEsq(filho);
+        if (pai == null) {
+            raiz = sucessor;
+        }
+        else {
+            if (pai.getEsq() == no) {
+                pai.setEsq(sucessor);
             }
             else {
-                pai.setDir(filho);
+                pai.setDir(sucessor);
             }
         }
-        // no a ser removido eh a raiz
-        else {
-            raiz = filho;
+        if (sucessor != null) {
+            if (sucessor.getEsq() != null) {
+                sucessor.getEsq().setPai(sucessor);
+            }
+            if (sucessor.getDir() != null) {
+                sucessor.getDir().setPai(sucessor);
+            }
         }
         
-        // no a ser removido possui os dois filhos
-        if (no.getEsq() != null && no.getDir() != null) {
-            NoArv<T> now = no.getEsq();
-            while (now.getDir() != null) {
-                now = now.getDir();
-            }
-            now.setDir(no.getDir());
-            no.getDir().setPai(now.getDir());
-        }
         n--;
         return true;
     }
@@ -119,7 +133,30 @@ public class ArvoreBinaria<T extends Comparable<T>> {
         printERD(raiz);
         System.out.println();
     }
-    public void printERD(NoArv<T> raiz) {
+    
+    public void printEDR() {
+        printEDR(raiz);
+        System.out.println();
+    }
+        
+    public void printRED() {
+        printRED(raiz);
+        System.out.println();
+    }
+    
+    public NoArv<T> getRaiz() {
+        return raiz;
+    }
+    
+    private int numDeFilhos(NoArv<T> no) {
+        if (no.getEsq() == null && no.getDir() == null)
+            return 0;
+        if (no.getEsq() == null || no.getDir() == null)
+            return 1;
+        return 2;
+    }
+    
+    private void printERD(NoArv<T> raiz) {
         if (raiz == null)
             return;
         printERD(raiz.getEsq());
@@ -127,11 +164,7 @@ public class ArvoreBinaria<T extends Comparable<T>> {
         printERD(raiz.getDir());
     }
     
-    public void printEDR() {
-        printEDR(raiz);
-        System.out.println();
-    }
-    public void printEDR(NoArv<T> raiz) {
+    private void printEDR(NoArv<T> raiz) {
         if (raiz == null)
             return;
         printEDR(raiz.getEsq());
@@ -139,8 +172,12 @@ public class ArvoreBinaria<T extends Comparable<T>> {
         System.out.print(raiz.toString() + " ");
     }
     
-    public NoArv<T> getRaiz() {
-        return raiz;
+    private void printRED(NoArv<T> raiz) {
+        if (raiz == null)
+            return;
+        System.out.print(raiz.toString() + " ");
+        printRED(raiz.getEsq());
+        printRED(raiz.getDir());
     }
     
     private NoArv<T> raiz;
