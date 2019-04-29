@@ -31,7 +31,7 @@ public class LoginFrame extends javax.swing.JFrame {
         login = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txt_senha = new javax.swing.JPasswordField();
-        button_entrar1 = new javax.swing.JButton();
+        button_sair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,10 +57,10 @@ public class LoginFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Senha");
 
-        button_entrar1.setText("Sair");
-        button_entrar1.addActionListener(new java.awt.event.ActionListener() {
+        button_sair.setText("Sair");
+        button_sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_entrar1ActionPerformed(evt);
+                button_sairActionPerformed(evt);
             }
         });
 
@@ -83,7 +83,7 @@ public class LoginFrame extends javax.swing.JFrame {
                         .addGap(164, 164, 164)
                         .addComponent(button_entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(button_entrar1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(button_sair, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(138, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -100,7 +100,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addGap(61, 61, 61)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(button_entrar)
-                    .addComponent(button_entrar1))
+                    .addComponent(button_sair))
                 .addContainerGap(113, Short.MAX_VALUE))
         );
 
@@ -131,15 +131,12 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_loginActionPerformed
 
     private void button_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_entrarActionPerformed
-        // TODO add your handling code here:
-
+       
         if(txt_login.getText().equals("adm") &&  new String(txt_senha.getPassword()).equals("@123")){
 
-            JOptionPane.showMessageDialog(null, "Entrou");
-            
-//            MenuFrame menu = new MenuFrame(); chama tela menu quando a senha for verdadeira
-//            tela.setVisible(true); 
-//            dispose(); fecha a tela login para não ficar aberta
+            Menu menu = new Menu();
+            menu.setVisible(true);
+            dispose();
 
         }else{
 
@@ -147,11 +144,11 @@ public class LoginFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_button_entrarActionPerformed
 
-    private void button_entrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_entrar1ActionPerformed
+    private void button_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_sairActionPerformed
         // TODO add your handling code here:
-        dispose();
         
-    }//GEN-LAST:event_button_entrar1ActionPerformed
+
+    }//GEN-LAST:event_button_sairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,7 +187,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton button_entrar;
-    private javax.swing.JButton button_entrar1;
+    private javax.swing.JButton button_sair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
