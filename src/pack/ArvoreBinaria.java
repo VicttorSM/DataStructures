@@ -48,6 +48,7 @@ public class ArvoreBinaria<T extends Comparable<T>> {
         }
         novo.setPai(anterior);
         n++;
+        recalculaAltura(novo);
         return true;
     }
     
@@ -63,6 +64,7 @@ public class ArvoreBinaria<T extends Comparable<T>> {
         
         /* encontra o sucessor e o troca de lugar com o no */
         NoArv<T> sucessor;
+        NoArv<T> ponto;
         switch (numDeFilhos(no)) {
             case 1:
                 if (no.getEsq() != null) {
@@ -70,13 +72,16 @@ public class ArvoreBinaria<T extends Comparable<T>> {
                 }
                 else {
                     sucessor = no.getDir();
-                }   
+                }
                 sucessor.setPai(pai);
+                ponto = sucessor;
                 break;
             case 2:
                 sucessor = no.getDir();
+                ponto = sucessor;
                 while (sucessor.getEsq() != null) {
                     sucessor = sucessor.getEsq();
+                    ponto = sucessor.getPai();
                 }
                 if (sucessor.getPai().getEsq() == sucessor) {
                     sucessor.getPai().setEsq(sucessor.getDir());
@@ -90,6 +95,7 @@ public class ArvoreBinaria<T extends Comparable<T>> {
                 break;
             default:
                 sucessor = null;
+                ponto = null;
                 break;
         }
         
@@ -112,6 +118,8 @@ public class ArvoreBinaria<T extends Comparable<T>> {
                 sucessor.getDir().setPai(sucessor);
             }
         }
+        if (ponto != null)
+            recalculaAltura(ponto);
         
         n--;
         return true;
@@ -128,6 +136,14 @@ public class ArvoreBinaria<T extends Comparable<T>> {
             }
         }
         return atual;
+    }
+    
+    public void recalculaAltura(NoArv<T> no) {
+        if (no == null)
+            return;
+        no.recalculaAltura();
+        verifyBalance(no);
+        recalculaAltura(no.getPai());
     }
     
     public void printERD() {
@@ -149,9 +165,81 @@ public class ArvoreBinaria<T extends Comparable<T>> {
         return raiz;
     }
     
+    public int getAltura() {
+        if (raiz == null)
+            return -1;
+        return raiz.getAltura();
+    }
+    
     public void limpa() {
         raiz = null; // deixa o GC do java limpar os nodos
         n = 0;
+    }
+       
+    private boolean verifyBalance(NoArv<T> no) {
+        switch (no.getBalanceFactor()) {
+            case 2:
+                if (no.getDir().getBalanceFactor() < 0)
+                    rightRotate(no.getDir());
+                leftRotate(no);
+                break;
+            case -2:
+                if (no.getEsq().getBalanceFactor() == -2)
+                    leftRotate(no.getEsq());
+                rightRotate(no);
+                break;
+            default:
+                return false;
+        }
+        return true;
+    }
+    
+    private void rightRotate(NoArv<T> y) {
+        NoArv<T> x = y.getEsq();
+        NoArv<T> b = x.getDir();
+        NoArv<T> pai = y.getPai();
+        
+        x.setDir(y);
+        x.setPai(pai);
+        y.setPai(x);
+        y.setEsq(b);
+        if (b != null)
+            b.setPai(y);
+        if (pai != null) {
+            if (pai.getEsq() == y)
+                pai.setEsq(x);
+            else
+                pai.setDir(x);
+        }
+        else
+            raiz = x;
+        
+        y.recalculaAltura();
+        x.recalculaAltura();
+    }
+
+    private void leftRotate(NoArv<T> x) {
+        NoArv<T> y = x.getDir();
+        NoArv<T> b = y.getEsq();
+        NoArv<T> pai = x.getPai();
+        
+        y.setEsq(x);
+        y.setPai(pai);
+        x.setPai(y);
+        x.setDir(b);
+        if (b != null)
+            b.setPai(x);
+        if (pai != null) {
+            if (pai.getEsq() == x)
+                pai.setEsq(y);
+            else
+                pai.setDir(y);
+        }
+        else
+            raiz = y;
+        
+        x.recalculaAltura();
+        y.recalculaAltura();
     }
     
     private int numDeFilhos(NoArv<T> no) {

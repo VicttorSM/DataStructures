@@ -51,6 +51,37 @@ public class NoArv<T> {
         this.dir = dir;
     }
     
+    public int getAltura() {
+        return altura;
+    }
+    
+    public int getBalanceFactor() {
+        int altEsq = -1;
+        int altDir = -1;
+        if (esq != null)
+            altEsq = esq.getAltura();
+        if (dir != null)
+            altDir = dir.getAltura();
+        return altDir - altEsq;
+    }
+    
+    public void recalculaAltura() {
+        int altEsq = -1;
+        int altDir = -1;
+        if (esq != null)
+            altEsq = esq.getAltura();
+        if (dir != null)
+            altDir = dir.getAltura();
+        altura = max(altEsq, altDir) + 1;
+    }
+    
+    int max(int a, int b) {
+        if (a >= b)
+            return a;
+        return b;
+    }
+    
+    private int altura;
     private T valor;
     private NoArv<T> pai;
     private NoArv<T> esq;
