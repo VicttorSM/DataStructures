@@ -130,7 +130,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void button_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_sairActionPerformed
         // TODO add your handling code here:
-
+        this.dispose();
     }//GEN-LAST:event_button_sairActionPerformed
 
     private void txt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_loginActionPerformed
@@ -198,7 +198,7 @@ public class LoginFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void setIcon() {
-       setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
+      // setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
        
     }
 }
