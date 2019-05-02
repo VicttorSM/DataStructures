@@ -14,11 +14,17 @@ import javax.swing.JPanel;
  */
 public class CadastroReserva extends javax.swing.JFrame {
 
+    private Hotel hotel;
     /**
      * Creates new form CadastroReserva
      */
     public CadastroReserva() {
         initComponents();
+    }
+    
+    public CadastroReserva(Hotel hotel) {
+        initComponents();
+        this.hotel = hotel;
     }
 
     /**
@@ -211,13 +217,8 @@ public class CadastroReserva extends javax.swing.JFrame {
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
         
         String item = cbNumero.getSelectedItem().toString();
-        CadastroHospede cadastroHospede = new CadastroHospede();
-        int i;
-        int a = Integer.valueOf(item);
-        Quarto.tipo = a;
-        for(i=0;i<a;i++){
-            cadastroHospede.setVisible(true);
-        }
+        CadastroHospede cadastroHospede = new CadastroHospede(hotel,Integer.valueOf(item));
+        cadastroHospede.setVisible(true);
         
         dispose();
             
@@ -235,7 +236,7 @@ public class CadastroReserva extends javax.swing.JFrame {
     private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
         // TODO add your handling code here:
         
-        new Menu().show();
+        new Menu(hotel).show();
         dispose();
     }//GEN-LAST:event_btn_voltarActionPerformed
 

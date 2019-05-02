@@ -9,12 +9,16 @@ import javax.swing.JOptionPane;
  */
 public class LoginFrame extends javax.swing.JFrame {
 
+    private Hotel hotel;
+    
     /**
      * Creates new form LoginFrame
      */
     public LoginFrame() {
         initComponents();
-            setIcon();
+        setIcon();
+        hotel = new Hotel();
+        //getRootPane().setDefaultButton(button_entrar);
     }
 
     /**
@@ -137,7 +141,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         if(txt_login.getText().equals("adm") &&  new String(txt_senha.getPassword()).equals("@123")){
 
-            Menu menu = new Menu();
+            Menu menu = new Menu(hotel);
             menu.setVisible(true);
             dispose();
 

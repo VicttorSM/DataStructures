@@ -5,17 +5,28 @@
  */
 package pack;
 
+import javax.swing.JOptionPane;
 /**
  *
  * @author Michelle
  */
 public class Busca extends javax.swing.JFrame {
 
+    private Hotel hotel;
+    private Hospede hospede;
     /**
      * Creates new form Busca
      */
     public Busca() {
         initComponents();
+    }
+    
+    public Busca(Hotel hotel) {
+        initComponents();
+        this.hotel = hotel;
+        this.hospede = null;
+        btnCheckIn.setEnabled(false);
+        btnCheckOut.setEnabled(false);
     }
 
     /**
@@ -32,9 +43,9 @@ public class Busca extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtCpf = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtArea = new javax.swing.JTextArea();
         btnCheckIn = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnCheckOut = new javax.swing.JButton();
         btn_voltaraomenu = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
@@ -44,6 +55,11 @@ public class Busca extends javax.swing.JFrame {
 
         btnBuscar.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel1.setText("Digite o CPF: ");
@@ -55,10 +71,10 @@ public class Busca extends javax.swing.JFrame {
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setOpaque(false);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtArea.setColumns(20);
+        txtArea.setRows(5);
+        txtArea.setOpaque(false);
+        jScrollPane1.setViewportView(txtArea);
 
         btnCheckIn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         btnCheckIn.setText("Realizar Check In");
@@ -68,8 +84,13 @@ public class Busca extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jButton1.setText("Realizar Check Out");
+        btnCheckOut.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        btnCheckOut.setText("Realizar Check Out");
+        btnCheckOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckOutActionPerformed(evt);
+            }
+        });
 
         btn_voltaraomenu.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         btn_voltaraomenu.setText("Voltar ao Menu");
@@ -106,7 +127,7 @@ public class Busca extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnCheckIn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
+                            .addComponent(btnCheckOut))
                         .addContainerGap(71, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(298, 298, 298)
@@ -127,7 +148,7 @@ public class Busca extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnCheckIn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(btnCheckOut))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(69, 69, 69)
                 .addComponent(btn_voltaraomenu)
@@ -148,8 +169,26 @@ public class Busca extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void mostrarHospede(Hospede hospede) {
+        txtArea.setText("");
+        txtArea.append(hospede.toString() + "\n");
+        txtArea.append(hospede.getIdade() + "\n");
+        txtArea.append(hospede.getCPF() + "\n");
+        txtArea.append(hospede.getSexo() + "\n");
+        txtArea.append(hospede.getCidade() + "\n");
+        txtArea.append(hospede.getEmail() + "\n");
+        txtArea.append(hospede.getTelefone() + "\n");
+        txtArea.append("Checkin:  " + hospede.getCheckin() + "\n");
+        txtArea.append("Checkout: " + hospede.getCheckout() + "\n");
+    } 
+    
     private void btnCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckInActionPerformed
-        
+        hospede.fazerCheckin();
+        JOptionPane.showMessageDialog(null, "Foi realizado o check-in do hóspede com sucesso");
+        btnCheckIn.setEnabled(false);
+        btnCheckOut.setEnabled(true);
+        mostrarHospede(hospede);
     }//GEN-LAST:event_btnCheckInActionPerformed
 
     private void txtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfActionPerformed
@@ -159,9 +198,42 @@ public class Busca extends javax.swing.JFrame {
     private void btn_voltaraomenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltaraomenuActionPerformed
         // TODO add your handling code here:
         
-        new Menu().show();
+        new Menu(hotel).show();
         dispose();
     }//GEN-LAST:event_btn_voltaraomenuActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        String cpf = txtCpf.getText();
+        txtArea.setText("");
+        btnCheckIn.setEnabled(false);
+        btnCheckOut.setEnabled(false);
+        if (cpf == null || cpf.equals("")) {
+            JOptionPane.showMessageDialog(null, "Digite um CPF","ERRO", 0);
+        }
+        else {
+            hospede = hotel.getHospedePorCPF(cpf);
+            if (hospede == null) {
+                JOptionPane.showMessageDialog(null, "Nenhum hóspede com o CPF '" + cpf + "' cadastrado","ERRO", 0);
+            }
+            else {
+                if (hospede.getCheckin() == null) {
+                    btnCheckIn.setEnabled(true);
+                }
+                else if (hospede.getCheckout() == null) {
+                    btnCheckOut.setEnabled(true);
+                }
+                mostrarHospede(hospede);
+            }
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOutActionPerformed
+        hospede.fazerCheckout();
+        JOptionPane.showMessageDialog(null, "Foi realizado o check-out do hóspede com sucesso");
+        btnCheckOut.setEnabled(false);
+        mostrarHospede(hospede);
+    }//GEN-LAST:event_btnCheckOutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,13 +273,13 @@ public class Busca extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCheckIn;
+    private javax.swing.JButton btnCheckOut;
     private javax.swing.JButton btn_voltaraomenu;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea txtArea;
     private javax.swing.JTextField txtCpf;
     // End of variables declaration//GEN-END:variables
 }

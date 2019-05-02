@@ -11,11 +11,17 @@ package pack;
  */
 public class Menu extends javax.swing.JFrame {
 
+    private Hotel hotel;
     /**
      * Creates new form Menu
      */
     public Menu() {
         initComponents();
+    }
+    
+    public Menu(Hotel hotel) {
+        initComponents();
+        this.hotel = hotel;
     }
 
     /**
@@ -111,13 +117,13 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CadastroReserva cadastroReserva = new CadastroReserva();
+        CadastroReserva cadastroReserva = new CadastroReserva(hotel);
         cadastroReserva.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnBuscaHospedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaHospedeActionPerformed
-        Busca busca = new Busca();
+        Busca busca = new Busca(hotel);
         busca.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnBuscaHospedeActionPerformed

@@ -5,7 +5,9 @@
  */
 package pack;
 
+import com.sun.glass.events.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -13,11 +15,21 @@ import javax.swing.JOptionPane;
  */
 public class CadastroHospede extends javax.swing.JFrame {
 
+    private Hotel hotel;
+    private int numDeCadastros;
     /**
      * Creates new form CadastroHospedes
      */
     public CadastroHospede() {
         initComponents();
+        getRootPane().setDefaultButton(btnCadatrar);
+    }
+    
+    public CadastroHospede(Hotel hotel, int numDeCadastros) {
+        initComponents();
+        this.hotel = hotel;
+        this.numDeCadastros = numDeCadastros;
+        //getRootPane().setDefaultButton(btnCadatrar);
     }
 
     /**
@@ -46,8 +58,8 @@ public class CadastroHospede extends javax.swing.JFrame {
         txt_email = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txt_tel = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCadatrar = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -120,19 +132,24 @@ public class CadastroHospede extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jButton1.setText("Cadastrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCadatrar.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        btnCadatrar.setText("Cadastrar");
+        btnCadatrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCadatrarActionPerformed(evt);
+            }
+        });
+        btnCadatrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnCadatrarKeyPressed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jButton2.setText("Voltar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnVoltar.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnVoltarActionPerformed(evt);
             }
         });
 
@@ -149,9 +166,9 @@ public class CadastroHospede extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(126, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(84, 84, 84)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCadatrar, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(117, 117, 117))
             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -215,8 +232,8 @@ public class CadastroHospede extends javax.swing.JFrame {
                     .addComponent(txt_tel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(btnVoltar)
+                    .addComponent(btnCadatrar))
                 .addGap(34, 34, 34))
         );
 
@@ -224,11 +241,11 @@ public class CadastroHospede extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
         );
 
         setSize(new java.awt.Dimension(775, 567));
@@ -253,12 +270,11 @@ public class CadastroHospede extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txt_cpfActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-
+    private void cadastrar() {
         String nome = txt_nome.getText();
         String sobrenome = txt_sobrenome.getText();
         String idade = txt_idade.getText();
+        String sexo = combo_sexo.getSelectedItem().toString();
         String cpf = txt_cpf.getText();
         String cidade = txt_cidade.getText();
         String email = txt_email.getText();
@@ -276,9 +292,19 @@ public class CadastroHospede extends javax.swing.JFrame {
         else if (idade.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campo IDADE é obrigatório!","AVISO", 2);
         }
+        
+        // Verifica se idade eh um numero
+        else if (!idade.matches("-?\\d+")) {
+            JOptionPane.showMessageDialog(null, "Campo IDADE precisa ser um número inteiro!","AVISO", 2);
+        }
 
         else if (cpf.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campo CPF é obrigatório!","AVISO", 2);
+        }
+        
+        // Verifica se o cpf já foi cadastrado
+        else if (hotel.getHospedePorCPF(cpf) != null) {
+            JOptionPane.showMessageDialog(null, "O CPF '" + cpf + "' já foi cadastrado","AVISO", 2);
         }
 
         else if (telefone.isEmpty()) {
@@ -286,7 +312,17 @@ public class CadastroHospede extends javax.swing.JFrame {
         }
         
         else{
-            
+            Hospede hospede = 
+                    new Hospede(
+                            nome,
+                            sobrenome,
+                            Integer.valueOf(idade),
+                            cpf,
+                            sexo,
+                            cidade,
+                            email,
+                            telefone);
+            hotel.cadastrarHospede(hospede);
             JOptionPane.showMessageDialog(null, "Hóspede cadastrado com sucesso!","CADASTRADO", 1);
 
             txt_nome.setText("");
@@ -296,21 +332,33 @@ public class CadastroHospede extends javax.swing.JFrame {
             txt_cidade.setText("");
             txt_email.setText("");
             txt_tel.setText("");
+            numDeCadastros--;
+            if (numDeCadastros == 0) {
+                new CadastroReserva(hotel).show();
+                dispose();
+            }
         }
-
-
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
+    
+    private void btnCadatrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadatrarActionPerformed
+        // TODO add your handling code here:
+        cadastrar();
+    }//GEN-LAST:event_btnCadatrarActionPerformed
 
     private void txt_nomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_nomeActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         // TODO add your handling code here:
         
-        new CadastroReserva().show();
+        new CadastroReserva(hotel).show();
         dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnCadatrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCadatrarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCadatrarKeyPressed
 
     /**
      * @param args the command line arguments
@@ -351,9 +399,9 @@ public class CadastroHospede extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCadatrar;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox combo_sexo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
