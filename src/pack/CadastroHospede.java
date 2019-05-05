@@ -49,7 +49,6 @@ public class CadastroHospede extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txt_idade = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txt_cpf = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         combo_sexo = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
@@ -61,6 +60,7 @@ public class CadastroHospede extends javax.swing.JFrame {
         btnCadatrar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        txt_cpf = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(172, 251, 175));
@@ -90,12 +90,6 @@ public class CadastroHospede extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(4, 2, 2));
         jLabel6.setText("CPF");
-
-        txt_cpf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_cpfActionPerformed(evt);
-            }
-        });
 
         jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(4, 2, 2));
@@ -160,6 +154,17 @@ public class CadastroHospede extends javax.swing.JFrame {
         jLabel9.setText("CADASTRAR HÓSPEDE");
         jLabel9.setOpaque(true);
 
+        try {
+            txt_cpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txt_cpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_cpfActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -183,15 +188,15 @@ public class CadastroHospede extends javax.swing.JFrame {
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_sobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_idade, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(combo_sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_cidade, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_tel, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txt_sobrenome, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                    .addComponent(txt_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                    .addComponent(txt_idade, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                    .addComponent(combo_sexo, 0, 330, Short.MAX_VALUE)
+                    .addComponent(txt_cidade, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                    .addComponent(txt_email, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                    .addComponent(txt_tel, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                    .addComponent(txt_cpf))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -241,11 +246,11 @@ public class CadastroHospede extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 765, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
         );
 
         setSize(new java.awt.Dimension(775, 567));
@@ -259,16 +264,6 @@ public class CadastroHospede extends javax.swing.JFrame {
     private void combo_sexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_sexoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_combo_sexoActionPerformed
-
-    private void txt_telActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_telActionPerformed
-
-    private void txt_cpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cpfActionPerformed
-        // TODO add your handling code here:
-
-
-    }//GEN-LAST:event_txt_cpfActionPerformed
 
     private void cadastrar() {
         String nome = txt_nome.getText();
@@ -305,6 +300,12 @@ public class CadastroHospede extends javax.swing.JFrame {
         // Verifica se o cpf já foi cadastrado
         else if (hotel.getHospedePorCPF(cpf) != null) {
             JOptionPane.showMessageDialog(null, "O CPF '" + cpf + "' já foi cadastrado","AVISO", 2);
+        }
+        
+        else if(cpf.trim().length() < 14) {
+                JOptionPane.showMessageDialog(null, "Por favor, insira um CPF válido", "AVISO", 2);
+                txt_cpf.requestFocusInWindow();
+                
         }
 
         else if (telefone.isEmpty()) {
@@ -360,6 +361,14 @@ public class CadastroHospede extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCadatrarKeyPressed
 
+    private void txt_telActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_telActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_telActionPerformed
+
+    private void txt_cpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_cpfActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -413,7 +422,7 @@ public class CadastroHospede extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txt_cidade;
-    private javax.swing.JTextField txt_cpf;
+    private javax.swing.JFormattedTextField txt_cpf;
     private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_idade;
     private javax.swing.JTextField txt_nome;
