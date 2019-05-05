@@ -15,6 +15,7 @@ public class LoginFrame extends javax.swing.JFrame {
      * Creates new form LoginFrame
      */
     public LoginFrame() {
+        setUndecorated(true);
         initComponents();
         setIcon();
         hotel = new Hotel();

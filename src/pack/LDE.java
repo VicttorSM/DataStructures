@@ -76,9 +76,9 @@ public class LDE<T extends Comparable<T>> {
 
         No<T> no = busca(x);
         No<T> anterior = null;
-        
+
         while (no != null) {
-            
+
             if (0 == no.getConteudo().compareTo(x)) {
 
                 break;
@@ -87,13 +87,12 @@ public class LDE<T extends Comparable<T>> {
             anterior = no;
 
         }
-        if(no == null){
+        if (no == null) {
             return false;
         }
-        if (anterior != null){
+        if (anterior != null) {
             anterior.setProximo(no.getProximo());
-        }
-        else {
+        } else {
             primeiro = no.getProximo();
         }
         n--;

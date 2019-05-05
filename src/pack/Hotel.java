@@ -5,14 +5,16 @@ package pack;
  */
 public class Hotel {
     
-    public Hotel() {
+      public Hotel() {
+        quartos = new LDE<>();
         hospedes = new ArvoreBinaria<>();
         checkin = new LDDE<>();
+        //reserva = new LES<>;
         int id = 1;
         /* Faz 10 quartos de cada tipo */
         for (int tipo = 1; tipo <= 4; tipo++) {
             for (int i = 0; i < 10; i++) {
-                //quartosDesocupados.insere(new Quarto(tipo, id, "DESCRIPTION", false));
+                quartos.insere(new Quarto(tipo, id));
             }
             id++;
         }
@@ -43,11 +45,16 @@ public class Hotel {
             return temp.getValor();
     }
     
+    public No<Quarto> getPrimeiroNoQuarto() {
+        return quartos.getPrimeiro();
+    }
+        
     public void getTodosHospedes() {
         // TODO
     }
     
-    //private LDE<Reserva> reservas;
+    //private LES<Reserva> reservas;
+    private LDE<Quarto> quartos;
     private ArvoreBinaria<Hospede> hospedes;
     private LDDE<Hospede> checkin;
     //private LDE<Quarto> quartosDesocupados;
