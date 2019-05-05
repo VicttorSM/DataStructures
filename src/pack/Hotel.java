@@ -20,10 +20,15 @@ public class Hotel {
     
     public void cadastraCheckIn(Hospede hospede){
         checkin.insere(hospede);
+        
+    }
+    public NoLDDE<Hospede> buscaNoLDDE(){
+        return checkin.getPrimeiro();
     }
     
     public boolean cadastrarHospede(Hospede hospede) {
         return hospedes.insere(hospede);
+       
     }
     
     public boolean removerHospede(Hospede hospede) {

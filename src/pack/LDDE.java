@@ -5,6 +5,14 @@ public class LDDE<P extends Comparable<P>>{
     private NoLDDE<P> primeiro,ultimo;
     private int n;
 
+    public NoLDDE<P> getPrimeiro() {
+        return primeiro;
+    }
+
+    public void setPrimeiro(NoLDDE<P> primeiro) {
+        this.primeiro = primeiro;
+    }
+
     public LDDE(){
         this.n = 0;
         this.primeiro = null;
@@ -12,6 +20,7 @@ public class LDDE<P extends Comparable<P>>{
     }
     boolean insere(P valor){
         NoLDDE<P> novo = new NoLDDE<P>();
+        novo.setValor(valor);
         novo.getValor();
         if(novo == null){
             return false;
@@ -73,7 +82,5 @@ public class LDDE<P extends Comparable<P>>{
         return true;
     }
 
-    void insere(LDDE<Hospede> checkin) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 }
