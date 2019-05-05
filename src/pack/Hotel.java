@@ -7,6 +7,7 @@ public class Hotel {
     
     public Hotel() {
         hospedes = new ArvoreBinaria<>();
+        checkin = new LDDE<>();
         int id = 1;
         /* Faz 10 quartos de cada tipo */
         for (int tipo = 1; tipo <= 4; tipo++) {
@@ -15,6 +16,10 @@ public class Hotel {
             }
             id++;
         }
+    }
+    
+    public void cadastraCheckIn(Hospede hospede){
+        checkin.insere(hospede);
     }
     
     public boolean cadastrarHospede(Hospede hospede) {
@@ -39,6 +44,7 @@ public class Hotel {
     
     //private LDE<Reserva> reservas;
     private ArvoreBinaria<Hospede> hospedes;
+    private LDDE<Hospede> checkin;
     //private LDE<Quarto> quartosDesocupados;
     //private LDE<Quarto> quartosOcupados;
 }
