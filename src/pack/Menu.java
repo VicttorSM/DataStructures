@@ -5,7 +5,6 @@
  */
 package pack;
 
-import java.awt.Toolkit;
 
 /**
  *
@@ -23,9 +22,9 @@ public class Menu extends javax.swing.JFrame {
     }
     
     public Menu(Hotel hotel) {
+        setUndecorated(true);
         initComponents();
         this.hotel = hotel;
-        setIcon();
     }
 
     /**
@@ -146,6 +145,7 @@ public class Menu extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -206,10 +206,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
     }
-     private void setIcon() {
-      setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
-       
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscaHospede;
     private javax.swing.JButton btnCheckIn;

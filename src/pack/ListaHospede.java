@@ -1,25 +1,21 @@
 
 package pack;
 
-import java.awt.Image;
-import java.awt.Toolkit;
-import javax.swing.DefaultListModel;
-
 public class ListaHospede extends javax.swing.JFrame {
 
-    DefaultListModel dlm = new DefaultListModel();
+    
     private Hotel hotel;
+    
     public ListaHospede(Hotel hotel) {
+        setUndecorated(true);
         initComponents();
         this.hotel = hotel;
         adiciona();
-        setIcon();
     }
 
     public ListaHospede() {
         initComponents();
-        
-        
+       
     }
 
     public void adiciona(){
@@ -171,7 +167,4 @@ public class ListaHospede extends javax.swing.JFrame {
     private javax.swing.JTextArea txtArea2;
     // End of variables declaration//GEN-END:variables
 
-    private void setIcon() {
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
-    }
 }

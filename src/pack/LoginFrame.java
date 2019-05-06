@@ -1,6 +1,5 @@
 package pack;
 
-import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,7 +16,6 @@ public class LoginFrame extends javax.swing.JFrame {
     public LoginFrame() {
         setUndecorated(true);
         initComponents();
-        setIcon();
         hotel = new Hotel();
         //getRootPane().setDefaultButton(button_entrar);
     }
@@ -199,8 +197,5 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JPasswordField txt_senha;
     // End of variables declaration//GEN-END:variables
 
-    private void setIcon() {
-      setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
-       
-    }
+  
 }

@@ -5,10 +5,8 @@
  */
 package pack;
 
-import com.sun.glass.events.KeyEvent;
-import java.awt.Toolkit;
 import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
+
 
 /**
  *
@@ -28,7 +26,6 @@ public class CadastroHospede extends javax.swing.JFrame {
     
     public CadastroHospede(Hotel hotel, int numDeCadastros) {
         initComponents();
-        setIcon();
         this.hotel = hotel;
         this.numDeCadastros = numDeCadastros;
         //getRootPane().setDefaultButton(btnCadatrar);
@@ -270,10 +267,6 @@ public class CadastroHospede extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_combo_sexoActionPerformed
 
-     private void setIcon() {
-      setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
-       
-    }
     private void cadastrar() {
         String nome = txt_nome.getText();
         String sobrenome = txt_sobrenome.getText();

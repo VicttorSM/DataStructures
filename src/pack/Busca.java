@@ -5,7 +5,6 @@
  */
 package pack;
 
-import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 /**
  *
@@ -23,8 +22,8 @@ public class Busca extends javax.swing.JFrame {
     }
     
     public Busca(Hotel hotel) {
+        setUndecorated(true);
         initComponents();
-        setIcon();
         this.hotel = hotel;
         this.hospede = null;
         btnCheckIn.setEnabled(false);
@@ -176,6 +175,7 @@ public class Busca extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     
@@ -275,10 +275,7 @@ public class Busca extends javax.swing.JFrame {
             }
         });
     }
-     private void setIcon() {
-      setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
-       
-    }
+     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCheckIn;
