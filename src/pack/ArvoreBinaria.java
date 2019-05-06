@@ -1,10 +1,12 @@
 package pack;
 
+import java.io.Serializable;
+
 /**
  * @author Victtor Mendes
  * @param <T> tipo de valor que será inserido na arvore
  */
-public class ArvoreBinaria<T extends Comparable<T>> {
+public class ArvoreBinaria<T extends Comparable<T>> implements Serializable {
 
     public ArvoreBinaria() {
         this.raiz = null;

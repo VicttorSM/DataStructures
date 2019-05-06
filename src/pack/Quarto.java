@@ -5,18 +5,31 @@
  */
 package pack;
 
+import java.io.Serializable;
 import pack.Reserva;
 
-class Quarto implements Comparable<Quarto> {
+class Quarto implements Comparable<Quarto>, Serializable {
 
     private int tipo;
     private int id;
+    private LDE<Reserva> reservas;
 
     public Quarto(int tipo, int id) {
+        reservas = new LDE<>();
         this.tipo = tipo;
         this.id = id;
     }
+    
+    public boolean addReserva(Reserva reserva) {
+        reserva.setQuarto(this);
+        reservas.insere(reserva);
+        return true;
+    }
 
+    public No<Reserva> getPrimeiroNoReserva() {
+        return reservas.getPrimeiro();
+    }
+    
     public int getId() {
         return id;
     }

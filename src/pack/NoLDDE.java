@@ -1,6 +1,8 @@
 package pack;
 
-public class NoLDDE <P extends Comparable<P>> {
+import java.io.Serializable;
+
+public class NoLDDE <P extends Comparable<P>> implements Serializable {
     public P valor;
     public NoLDDE<P> proximo;
     public NoLDDE<P> anterior;

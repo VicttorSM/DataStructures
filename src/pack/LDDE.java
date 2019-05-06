@@ -1,7 +1,8 @@
 package pack;
 
+import java.io.Serializable;
 import pack.NoLDDE;
-public class LDDE<P extends Comparable<P>>{
+public class LDDE<P extends Comparable<P>> implements Serializable{
     private NoLDDE<P> primeiro,ultimo;
     private int n;
 

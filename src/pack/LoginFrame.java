@@ -2,7 +2,18 @@ package pack;
 
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Victtor Mendes, Michelle Brandao, William Barbosa
@@ -18,7 +29,32 @@ public class LoginFrame extends javax.swing.JFrame {
         setUndecorated(true);
         initComponents();
         setIcon();
-        hotel = new Hotel();
+        try {
+            File file = new File("HotelData.dat");
+            boolean exist = file.exists();
+            //outStream.reset();
+            if (!exist) {
+                FileOutputStream fileOut = new FileOutputStream(file);
+                ObjectOutputStream outStream = new ObjectOutputStream(fileOut);
+                outStream.writeObject(new Hotel());
+                fileOut.close();
+                outStream.close();
+                System.out.println("MADE NOVO HOTEL");
+            }
+            else {
+                System.out.println("ELSE");
+            }
+
+
+            FileInputStream inFile = new FileInputStream(file);
+            ObjectInputStream inStream = new ObjectInputStream(inFile);
+            hotel = (Hotel) inStream.readObject();
+            inFile.close();
+            inStream.close();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+        System.out.println("HOTEL: " + hotel);
         //getRootPane().setDefaultButton(button_entrar);
     }
 
@@ -131,6 +167,18 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void button_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_sairActionPerformed
         // TODO add your handling code here:
+        
+        try {
+            File file = new File("HotelData.dat");
+            FileOutputStream fileOut = new FileOutputStream(file);
+            ObjectOutputStream outStream = new ObjectOutputStream(fileOut);
+            outStream.reset();
+            outStream.writeObject(hotel);
+            fileOut.close();
+            outStream.close();
+        } catch (IOException e) {
+        }
+        System.out.println("HOTEL: " + hotel);
         this.dispose();
     }//GEN-LAST:event_button_sairActionPerformed
 

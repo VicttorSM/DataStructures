@@ -1,11 +1,13 @@
 package pack;
 
+import java.io.Serializable;
+
 /**
  * @author Victtor da Silva Mendes
  */
-public class Hotel {
+public class Hotel implements Serializable {
     
-      public Hotel() {
+    public Hotel() {
         quartos = new LDE<>();
         hospedes = new ArvoreBinaria<>();
         checkin = new LDDE<>();
@@ -34,6 +36,7 @@ public class Hotel {
     }
     
     public boolean removerHospede(Hospede hospede) {
+        checkin.remove(hospede);
         return hospedes.remove(hospede);
     }
     
@@ -48,15 +51,8 @@ public class Hotel {
     public No<Quarto> getPrimeiroNoQuarto() {
         return quartos.getPrimeiro();
     }
-        
-    public void getTodosHospedes() {
-        // TODO
-    }
     
-    //private LES<Reserva> reservas;
     private LDE<Quarto> quartos;
     private ArvoreBinaria<Hospede> hospedes;
     private LDDE<Hospede> checkin;
-    //private LDE<Quarto> quartosDesocupados;
-    //private LDE<Quarto> quartosOcupados;
 }

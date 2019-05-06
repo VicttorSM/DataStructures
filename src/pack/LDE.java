@@ -5,13 +5,14 @@
  */
 package pack;
 
+import java.io.Serializable;
 import pack.No;
 
 /**
  *
  * @author will
  */
-public class LDE<T extends Comparable<T>> {
+public class LDE<T extends Comparable<T>> implements Serializable {
 
     private int n;
     private No<T> primeiro;
@@ -24,6 +25,8 @@ public class LDE<T extends Comparable<T>> {
         this.ultimo = null;
 
     }
+    
+    
 
     public boolean insere(T x) {
 

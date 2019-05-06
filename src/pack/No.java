@@ -1,6 +1,8 @@
 package pack;
 
-public class No<T> {
+import java.io.Serializable;
+
+public class No<T> implements Serializable {
 
     private T conteudo;
     private No<T> proximo;

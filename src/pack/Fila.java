@@ -1,8 +1,9 @@
 package pack;
 
+import java.io.Serializable;
 import pack.No;
 
-public class Fila<T> {
+public class Fila<T> implements Serializable {
 
     private int n;
     private No<T> primeiro;
@@ -19,7 +20,7 @@ public class Fila<T> {
     }
 
     boolean enfileira(T x) {
-        No<T> novo = new No<T>();
+        No<T> novo = new No<>();
         novo.setConteudo(x);
         if (primeiro == null) {
             primeiro = novo;

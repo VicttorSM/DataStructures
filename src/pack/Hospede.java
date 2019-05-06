@@ -1,11 +1,12 @@
 package pack;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author Victtor da Silva Mendes
  */
-public class Hospede extends Pessoa implements Comparable<Hospede> {
+public class Hospede extends Pessoa implements Comparable<Hospede>, Serializable {
 
     public Hospede(String nome,
                    String sobrenome,

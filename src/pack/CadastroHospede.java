@@ -17,6 +17,7 @@ public class CadastroHospede extends javax.swing.JFrame {
 
     private Hotel hotel;
     private int numDeCadastros;
+    private Reserva reserva;
     /**
      * Creates new form CadastroHospedes
      */
@@ -25,10 +26,11 @@ public class CadastroHospede extends javax.swing.JFrame {
         getRootPane().setDefaultButton(btnCadatrar);
     }
     
-    public CadastroHospede(Hotel hotel, int numDeCadastros) {
+    public CadastroHospede(Hotel hotel, int numDeCadastros, Reserva reserva) {
         initComponents();
         this.hotel = hotel;
         this.numDeCadastros = numDeCadastros;
+        this.reserva = reserva;
         //getRootPane().setDefaultButton(btnCadatrar);
     }
 
@@ -323,6 +325,7 @@ public class CadastroHospede extends javax.swing.JFrame {
                             cidade,
                             email,
                             telefone);
+            reserva.cadastraHospede(hospede);
             hotel.cadastrarHospede(hospede);
             JOptionPane.showMessageDialog(null, "Hóspede cadastrado com sucesso!","CADASTRADO", 1);
 

@@ -5,11 +5,13 @@
  */
 package pack;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Michelle
  */
-public class Pessoa {
+public class Pessoa implements Serializable {
 
     public Pessoa(String nome, 
                   String sobrenome,

@@ -1,11 +1,13 @@
 package pack;
 
+import java.io.Serializable;
+
 /**
  * @author Victtor Mendes
  * @param <T> tipo de valor que será inserido no nó
  */
 
-public class NoArv<T> {
+public class NoArv<T> implements Serializable {
 
     public NoArv(T valor) {
         this.valor = valor;

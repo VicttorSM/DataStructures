@@ -5,18 +5,30 @@
  */
 package pack;
 
+import java.io.Serializable;
+
 /**
  *
  * @author william
  */
-public class LES {
+public class LES implements Serializable {
 
     public LES(int MAX) {
         arr = new Hospede[MAX];
         this.n = 0;
     }
+    
+    public int size() {
+        return n;
+    }
+    
+    public Hospede get(int i) {
+        if (i < 0 || i >= n)
+            return null;
+        return arr[i];
+    }
 
-    boolean insere(Hospede x) {
+    public boolean insere(Hospede x) {
         if (n >= arr.length) {
             return false;
         }
@@ -31,7 +43,7 @@ public class LES {
         return true;
     }
 
-    int busca(Hospede x) {
+    public int busca(Hospede x) {
         int i = 0;
         int f = n;
         int p = ((f - i) / 2) + i;
@@ -52,11 +64,11 @@ public class LES {
         return -1;
     }
 
-    boolean remove(Hospede x) {
+    public boolean remove(Hospede x) {
         return remove(busca(x));
     }
 
-    boolean remove(int i) {
+    public boolean remove(int i) {
         if (i == -1) {
             return false;
         }

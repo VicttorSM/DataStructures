@@ -5,6 +5,11 @@
  */
 package pack;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 /**
  *
  * @author Michelle, will, Victtor 
@@ -163,7 +168,18 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btn_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sairActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here
+        
+        try {
+            File file = new File("HotelData.dat");
+            FileOutputStream fileOut = new FileOutputStream(file);
+            ObjectOutputStream outStream = new ObjectOutputStream(fileOut);
+            outStream.reset();
+            outStream.writeObject(hotel);
+            fileOut.close();
+            outStream.close();
+        } catch (IOException e) {
+        }
         dispose();
     }//GEN-LAST:event_btn_sairActionPerformed
 

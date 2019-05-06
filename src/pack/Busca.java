@@ -227,6 +227,8 @@ public class Busca extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Foi realizado o check-out do hóspede com sucesso");
         btnCheckOut.setEnabled(false);
         mostrarHospede(hospede);
+        hotel.removerHospede(hospede);
+        hospede = null;
     }//GEN-LAST:event_btnCheckOutActionPerformed
 
     /**

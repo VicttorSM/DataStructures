@@ -5,6 +5,10 @@
  */
 package pack;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -15,16 +19,58 @@ import javax.swing.JPanel;
 public class CadastroReserva extends javax.swing.JFrame {
 
     private Hotel hotel;
+    private Reserva reserva;
+
     /**
      * Creates new form CadastroReserva
      */
     public CadastroReserva() {
         initComponents();
     }
-    
+
     public CadastroReserva(Hotel hotel) {
         initComponents();
         this.hotel = hotel;
+        this.reserva = null;
+    }
+
+    private boolean dataValida(String txt) {
+
+        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        fmt.setLenient(false);
+        String txtData = txt + " 00:00:00";
+        try {
+            Date date = fmt.parse(txtData);
+            return true;
+        } catch (ParseException ex) {
+            return false;
+        }
+    }
+
+    private Date dataComZeroTempo(String txt) {
+        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        fmt.setLenient(false);
+        String txtData = txt + " 00:00:00";
+        try {
+            Date date = fmt.parse(txtData);
+            return date;
+        } catch (ParseException ex) {
+            return null;
+        }
+    }
+
+    private Date dataComZeroTempo(Date dat) {
+        SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+        fmt.setLenient(false);
+        String txt = formater.format(dat);
+        String txtData = txt + " 00:00:00";
+        try {
+            Date date = fmt.parse(txtData);
+            return date;
+        } catch (ParseException ex) {
+            return null;
+        }
     }
 
     /**
@@ -39,8 +85,7 @@ public class CadastroReserva extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btnReservar = new javax.swing.JButton();
         calculaValor = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        labelValor = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         cbNumero = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
@@ -48,12 +93,10 @@ public class CadastroReserva extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btn_voltar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jFormattedTextField2 = new javax.swing.JFormattedTextField();
+        txtDataEntrada = new javax.swing.JFormattedTextField();
+        txtDataSaida = new javax.swing.JFormattedTextField();
         labelQuarto = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        labelDias = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,15 +111,12 @@ public class CadastroReserva extends javax.swing.JFrame {
         });
 
         calculaValor.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        calculaValor.setText("Calcular Valor");
+        calculaValor.setText("Calcular Tipo");
         calculaValor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 calculaValorActionPerformed(evt);
             }
         });
-
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel4.setText("Valor da Reserva:");
 
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel2.setText("Número de pessoas");
@@ -112,25 +152,19 @@ public class CadastroReserva extends javax.swing.JFrame {
         jLabel9.setText("RESERVAR QUARTO");
         jLabel9.setOpaque(true);
 
-        jLabel7.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel7.setText("Dias:");
-
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            txtDataEntrada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
 
         try {
-            jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            txtDataSaida.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
 
-        jLabel8.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        jLabel8.setText("R$");
-
-        jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        labelDias.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -154,19 +188,16 @@ public class CadastroReserva extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextField1))
+                                .addComponent(txtDataEntrada))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cbNumero, 0, 87, Short.MAX_VALUE))
                             .addComponent(calculaValor, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(labelValor, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(67, 67, 67)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -174,13 +205,12 @@ public class CadastroReserva extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(labelQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(41, 41, 41)
+                        .addComponent(labelDias, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(129, 129, 129))
         );
         jPanel1Layout.setVerticalGroup(
@@ -193,8 +223,8 @@ public class CadastroReserva extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3)
-                            .addComponent(jFormattedTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(19, 19, 19)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -205,13 +235,12 @@ public class CadastroReserva extends javax.swing.JFrame {
                         .addComponent(labelQuarto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel7)
-                        .addComponent(jLabel8)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(86, 86, 86)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(labelDias, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(88, 88, 88))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(labelValor, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(86, 86, 86)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(calculaValor)
                     .addComponent(btnReservar))
@@ -221,7 +250,6 @@ public class CadastroReserva extends javax.swing.JFrame {
         );
 
         jLabel9.getAccessibleContext().setAccessibleName("Reservar Quarto");
-        jLabel7.getAccessibleContext().setAccessibleName("Dias");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -242,25 +270,89 @@ public class CadastroReserva extends javax.swing.JFrame {
     private void cbNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNumeroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbNumeroActionPerformed
+  
+    private boolean possible(Reserva reserva, Quarto quarto) {
+        No<Reserva> atual = quarto.getPrimeiroNoReserva();
+        
+        while (atual != null) {
+            Reserva outra = atual.getConteudo();
+            /* Testa se a reserva entra em conflito com alguma reserva do quarto */
+            if (reserva.getEntrada().after(outra.getEntrada()) && reserva.getEntrada().before(outra.getSaida()) ||
+                    reserva.getSaida().after(outra.getEntrada()) && reserva.getSaida().before(outra.getSaida()) ||
+                    reserva.getEntrada().before(outra.getEntrada()) && reserva.getSaida().after(outra.getSaida()) ||
+                    reserva.getEntrada().equals(outra.getEntrada()) || reserva.getEntrada().equals(outra.getSaida()) ||
+                    reserva.getSaida().equals(outra.getEntrada()) || reserva.getSaida().equals(outra.getSaida()) )
+                return false;
+        }
+        
+        return true;
+    }
+    
+    private boolean inserirQuarto(Reserva reserva) {
+        No<Quarto> atual = hotel.getPrimeiroNoQuarto();
+        
+        while (atual != null && reserva.getNumPessoas() <= atual.getConteudo().getTipo()) {
+            if (reserva.getNumPessoas() == atual.getConteudo().getTipo() &&
+                    possible(reserva, atual.getConteudo())) {
+                
+                atual.getConteudo().addReserva(reserva);
+                return true;
+            }
+            atual = atual.getProximo();
+        }
+        
+        return false;
+    }
+    
+    private boolean calcularReserva() {
+        Date hoje = dataComZeroTempo(new Date());
+        Date entrada = dataComZeroTempo(txtDataEntrada.getText());
+        Date saida = dataComZeroTempo(txtDataSaida.getText());
+        //86400000
+
+        if (!dataValida(txtDataEntrada.getText())) {
+            JOptionPane.showMessageDialog(null, "Data de entrada inválida!", "ERRO", 0);
+        } else if (!dataValida(txtDataSaida.getText())) {
+            JOptionPane.showMessageDialog(null, "Data de saída inválida!", "ERRO", 0);
+        } else if (entrada.before(hoje)) {
+            JOptionPane.showMessageDialog(null, "Data de entrada não pode ser antes de hoje!", "ERRO", 0);
+        } else if (saida.before(hoje)) {
+            JOptionPane.showMessageDialog(null, "Data de saida não pode ser antes de hoje!", "ERRO", 0);
+        } else if (saida.before(entrada)) {
+            JOptionPane.showMessageDialog(null, "Data de saida não pode ser antes da data de entrada!", "ERRO", 0);
+        } else if (saida.equals(entrada)) {
+            JOptionPane.showMessageDialog(null, "Data de saida não pode ser a mesma da data de entrada!", "ERRO", 0);
+        } else {
+            reserva = new Reserva(entrada, saida, Integer.valueOf(cbNumero.getSelectedItem().toString()));
+            inserirQuarto(reserva);
+            return true;
+        }
+        return false;
+    }
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-        
-        String item = cbNumero.getSelectedItem().toString();
-        CadastroHospede cadastroHospede = new CadastroHospede(hotel,Integer.valueOf(item));
-        cadastroHospede.setVisible(true);
-        
-        dispose();
-            
-        
+        /* reservas */
+        if (calcularReserva()) {
+            String item = cbNumero.getSelectedItem().toString();
+            CadastroHospede cadastroHospede = new CadastroHospede(hotel, Integer.valueOf(item), reserva);
+            cadastroHospede.setVisible(true);
+
+            dispose();
+        }
+        else {
+            System.out.println("DEU ERRO");
+        }
+
     }//GEN-LAST:event_btnReservarActionPerformed
 
     private void calculaValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculaValorActionPerformed
-        
+        int num = Integer.valueOf(cbNumero.getSelectedItem().toString());
+        labelQuarto.setText(num+"");
     }//GEN-LAST:event_calculaValorActionPerformed
 
     private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
         // TODO add your handling code here:
-        
+
         new Menu(hotel).show();
         dispose();
     }//GEN-LAST:event_btn_voltarActionPerformed
@@ -305,19 +397,16 @@ public class CadastroReserva extends javax.swing.JFrame {
     private javax.swing.JButton btn_voltar;
     private javax.swing.JButton calculaValor;
     private javax.swing.JComboBox cbNumero;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelDias;
     private javax.swing.JLabel labelQuarto;
+    private javax.swing.JLabel labelValor;
+    private javax.swing.JFormattedTextField txtDataEntrada;
+    private javax.swing.JFormattedTextField txtDataSaida;
     // End of variables declaration//GEN-END:variables
 }
