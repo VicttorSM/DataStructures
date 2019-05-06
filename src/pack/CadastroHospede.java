@@ -26,6 +26,7 @@ public class CadastroHospede extends javax.swing.JFrame {
     }
     
     public CadastroHospede(Hotel hotel, int numDeCadastros, Reserva reserva) {
+        setUndecorated(true);
         initComponents();
         this.hotel = hotel;
         this.numDeCadastros = numDeCadastros;
