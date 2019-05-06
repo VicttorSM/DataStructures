@@ -1,6 +1,12 @@
 # Sistema para locação de quartos de hotéis
 Projeto de P1 de Estrutura de dados, feito em Java utilizando o JFrame através da IDE NetBeans.
 
+## Efetuando login
+
+Login:adm
+
+Senha:@123
+
 ## Objetivo
 O objetivo do projeto é criar uma aplicação gráfica para locação de quartos de hotéis.
 

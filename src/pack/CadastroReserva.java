@@ -29,6 +29,7 @@ public class CadastroReserva extends javax.swing.JFrame {
     }
 
     public CadastroReserva(Hotel hotel) {
+        setUndecorated(true);
         initComponents();
         this.hotel = hotel;
         this.reserva = null;
@@ -152,7 +153,6 @@ public class CadastroReserva extends javax.swing.JFrame {
         jLabel9.setText("RESERVAR QUARTO");
         jLabel9.setOpaque(true);
 
-
         try {
             txtDataEntrada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
@@ -166,7 +166,6 @@ public class CadastroReserva extends javax.swing.JFrame {
         }
 
         labelDias.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -196,7 +195,7 @@ public class CadastroReserva extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cbNumero, 0, 87, Short.MAX_VALUE))
                             .addComponent(calculaValor, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(labelValor, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -246,7 +245,7 @@ public class CadastroReserva extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(calculaValor)
                     .addComponent(btnReservar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(btn_voltar)
                 .addGap(62, 62, 62))
         );
@@ -267,6 +266,7 @@ public class CadastroReserva extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNumeroActionPerformed
@@ -400,7 +400,6 @@ public class CadastroReserva extends javax.swing.JFrame {
     private javax.swing.JButton calculaValor;
     private javax.swing.JComboBox cbNumero;
     private javax.swing.JLabel jLabel1;
-
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
