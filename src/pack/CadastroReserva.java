@@ -152,6 +152,7 @@ public class CadastroReserva extends javax.swing.JFrame {
         jLabel9.setText("RESERVAR QUARTO");
         jLabel9.setOpaque(true);
 
+
         try {
             txtDataEntrada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
@@ -165,6 +166,7 @@ public class CadastroReserva extends javax.swing.JFrame {
         }
 
         labelDias.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -398,6 +400,7 @@ public class CadastroReserva extends javax.swing.JFrame {
     private javax.swing.JButton calculaValor;
     private javax.swing.JComboBox cbNumero;
     private javax.swing.JLabel jLabel1;
+
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
